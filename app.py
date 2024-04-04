@@ -1,21 +1,20 @@
-# test2 project, app.py
-# Mike Colbert 09/20/2019
-
-from flask import Flask
+from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return 'Hello world, index'
-
-@app.route('/hien')
-def hien():
-    return 'Hello hien'
+    return render_template("index.html")
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
-
+if __name__ == "__main__":
+    app.run(
+        host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 4444)), debug=True
+    )
